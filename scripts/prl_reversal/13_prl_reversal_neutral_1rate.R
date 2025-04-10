@@ -57,6 +57,17 @@ fit_neutral <- mod$sample(
   max_treedepth = 12  # Increase max_treedepth to allow more exploration
 )
 
+# Save the object to a file.
+qs::qsave(
+  x = fit_neutral,
+  file = here::here("scripts", "prl_reversal", "fits", "fit_neutral.qs")
+)
+
+# Read the object.
+fit_neutral <- qs::qread(
+  here::here("scripts", "prl_reversal", "fits", "fit_neutral.qs")
+)
+
 
 # -------------------------------------------------------------------
 # Extract posterior draws for group-level parameters

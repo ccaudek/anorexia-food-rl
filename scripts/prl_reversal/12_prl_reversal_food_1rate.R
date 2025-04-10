@@ -1,13 +1,11 @@
 # Overview ----------------------------------------------------------------
-# Associated project: Groundhog Day PRL
-# Script purpose: Run a Rescorla-Wagner Stan model that accounts for both 
-#  autobiographic and fractal stimuli, and consider the effect of instant
-#  mood. 
+# Associated project: AN-R: PRL with food/neutral stimuli
+# Script purpose: 
 #
 # Written by: Corrado Caudek (corrado.caudek@unifi.it)
-# Version: Sun Sep  8 10:36:16 CEST 2024
-# Last update: Sun Sep  8 10:36:16 CEST 2024
-# Status: In progress
+# Version: Wed Apr  9 16:37:43 2025
+# Last update: Wed Apr  9 16:37:43 2025
+# Status: Final
 # Notes: 
 
 
@@ -55,6 +53,17 @@ fit_food <- mod$sample(
   refresh = 100,
   adapt_delta = 0.9,  # Increase adapt_delta to reduce step size
   max_treedepth = 12  # Increase max_treedepth to allow more exploration
+)
+
+# Save the object to a file.
+qs::qsave(
+  x = fit_food,
+  file = here::here("scripts", "prl_reversal", "fits", "fit_food.qs")
+)
+
+# # Read the object.
+fit_food <- qs::qread(
+ here::here("scripts", "prl_reversal", "fits", "fit_food.qs")
 )
 
 
@@ -109,7 +118,6 @@ for (i in seq_len(G)) {
 param_prefixes <- c("alpha_pre_", "alpha_post_", "beta_pre_", "beta_post_")
 
 # Grab matching columns
-library(dplyr)
 derived_cols <- purrr::map(param_prefixes, ~grep(.x, names(draws_df), value=TRUE)) %>%
   unlist()
 
@@ -130,8 +138,6 @@ print(summaries, n=40)
 # ----------------------------------------------------------
 # Prepare data subsets for alpha_pos, alpha_neg, beta
 # ----------------------------------------------------------
-
-library(ggplot2)
 
 # a) Alpha
 alpha_df <- summaries %>%

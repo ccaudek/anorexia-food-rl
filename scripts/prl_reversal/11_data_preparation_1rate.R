@@ -1,13 +1,11 @@
 # Overview ----------------------------------------------------------------
-# Associated project: Groundhog Day PRL
-# Script purpose: Run a Rescorla-Wagner Stan model that accounts for both 
-#  autobiographic and fractal stimuli, and consider the effect of instant
-#  mood. 
+# Associated project: AN-R: PRL with food/neutral stimuli
+# Script purpose: 
 #
 # Written by: Corrado Caudek (corrado.caudek@unifi.it)
-# Version: Sun Sep  8 10:36:16 CEST 2024
-# Last update: Sun Sep  8 10:36:16 CEST 2024
-# Status: In progress
+# Version: Wed Apr  9 16:36:17 2025
+# Last update: Wed Apr  9 16:36:17 2025
+# Status: Final
 # Notes: 
 
 
@@ -60,6 +58,14 @@ par(family="serif", las=1, bty="l",
 df <- rio::import(
   here::here("data", "raw", "ed_prl_data.csv")
 )
+
+participants_names <- unique(df$subj_code)
+
+rio::export(
+  participants_names,
+  here("data", "raw", "participants_names.RDS")
+)
+
 
 # -------------------------------------------------------------------------
 # 1) Create a data frame for the "food" condition, 80 trials max
