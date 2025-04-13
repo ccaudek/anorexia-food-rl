@@ -166,6 +166,8 @@ summary_df <- subjects_df %>%
     .groups = "drop"
   )
 
+summary_df
+
 # Step 4: Grafico
 ggplot(summary_df, aes(x = diagnostic_category, y = mean_prop, fill = stimulus)) +
   geom_col(position = position_dodge(0.9), color = "black") +
