@@ -1,10 +1,10 @@
 # Overview ----------------------------------------------------------------
 # Associated project: AN-R: PRL with food/neutral stimuli
-# Script purpose: 
+# Script purpose: generate input data for Stan.
 #
 # Written by: Corrado Caudek (corrado.caudek@unifi.it)
 # Version: Wed Apr  9 16:36:17 2025
-# Last update: Wed Apr  9 16:36:17 2025
+# Last update: Wed Apr 16 20:20:35 2025
 # Status: Final
 # Notes: 
 
@@ -156,6 +156,17 @@ stan_data_neutral <- list(
   choice = choice_neutral,
   feedback = feedback_neutral,
   epoch = epoch_neutral
+)
+
+# Save Stan input lists as RDS
+rio::export(
+  stan_data_food,
+  here("scripts", "prl_reversal", "stan_input_data", "stan_data_food.RDS")
+)
+
+rio::export(
+  stan_data_neutral,
+  here("scripts", "prl_reversal", "stan_input_data", "stan_data_neutral.RDS")
 )
 
 

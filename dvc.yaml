@@ -6,3 +6,24 @@ stages:
       - scripts/hddm/ddm/traces.csv
     outs:
       - scripts/hddm/figures/sim_empirical_comparison_plot.pdf
+
+  prepare_stan_data:
+    cmd: Rscript scripts/prl_reversal/01_prepare_stan_data_1rate.R
+    deps:
+      - scripts/prl_reversal/01_prepare_stan_data_1rate.R
+      - data/raw/ed_prl_data.csv
+    outs:
+      - scripts/prl_reversal/stan_input_data/stan_data_food.RDS
+      - scripts/prl_reversal/stan_input_data/stan_data_neutral.RDS
+
+  fit_prl:
+    cmd: Rscript scripts/prl_reversal/02_fit_prl.R
+    deps:
+      - scripts/prl_reversal/02_fit_prl.R
+      - scripts/prl_reversal/stan/prl_one_learning_rate.stan
+      - scripts/prl_reversal/stan_input_data/stan_data_food.RDS
+      - scripts/prl_reversal/stan_input_data/stan_data_neutral.RDS
+    outs:
+      - scripts/prl_reversal/fits/fit_food.qs
+      - scripts/prl_reversal/fits/fit_neutral.qs
+      - scripts/prl_reversal/figures/          # track every PDF produced
