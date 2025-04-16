@@ -53,3 +53,4 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+scripts/hddm/figures/sim_empirical_comparison_plot.pdf
