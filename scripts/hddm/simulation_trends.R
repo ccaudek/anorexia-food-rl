@@ -100,12 +100,12 @@ sim_results %>%
     se = sd(prop_correct, na.rm = TRUE) / sqrt(n()),
     .groups = "drop"
   )
-> # group condition mean_prop      se
-  > # <chr> <chr>         <dbl>   <dbl>
-  > # 1 AN    food          0.558 0.0157 
-  > # 2 AN    neutral       0.594 0.0124 
-  > # 3 HC    food          0.599 0.00981
-  > # 4 HC    neutral       0.605 0.00988
-  > # 5 RI    food          0.619 0.0105 
-  > # 6 RI    neutral       0.604 0.00937
+# group condition mean_prop ci_low ci_high
+# <chr> <chr>         <dbl>  <dbl>   <dbl>
+# 1 AN    food          0.511  0.425   0.606
+# 2 AN    neutral       0.594  0.438   0.756
+# 3 HC    food          0.602  0.456   0.762
+# 4 HC    neutral       0.616  0.469   0.769
+# 5 RI    food          0.602  0.469   0.75 
+# 6 RI    neutral       0.616  0.469   0.762
 

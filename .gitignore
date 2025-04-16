@@ -1,3 +1,6 @@
+# traces from the posterior distribution of the full model
+scripts/hddm/ddm/traces.csv
+
 # macOS system files
 .DS_Store
 

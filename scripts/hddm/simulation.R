@@ -13,6 +13,15 @@ library(tidyverse)
 library(here)
 library(rio)
 
+# I dati empirici sono: 
+# diagnostic_category stimulus mean_prop     se
+# 1 AN                  food         0.501 0.0275
+# 2 AN                  neutral      0.559 0.0207
+# 3 HC                  food         0.552 0.0199
+# 4 HC                  neutral      0.567 0.0131
+# 5 RI                  food         0.562 0.0196
+# 6 RI                  neutral      0.593 0.0162 
+
 # Importa i parametri posteriori
 traces <- rio::import(here("scripts", "hddm", "ddm", "traces.csv"))
 
