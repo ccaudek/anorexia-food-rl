@@ -1,0 +1,4 @@
+[core]
+    remote = icloud_remote
+['remote "icloud_remote"']
+    url = /Users/corrado/Documents/dvc-remote/anorexia-food-rl

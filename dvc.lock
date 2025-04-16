@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  simulate_and_plot_rl_results:
+    cmd: Rscript scripts/hddm/simulation_qualitative_trend.R
+    deps:
+    - path: scripts/hddm/ddm/traces.csv
+      hash: md5
+      md5: be7b104d6585ce1caec7770825c8af60
+      size: 219595834
+    - path: scripts/hddm/simulation_qualitative_trend.R
+      hash: md5
+      md5: 77977c30e7f8b6ff14ec5aed75e5cc74
+      size: 14505
+    outs:
+    - path: scripts/hddm/figures/sim_empirical_comparison_plot.pdf
+      hash: md5
+      md5: 4f226adc556039da2f930dc1024046bc
+      size: 5119

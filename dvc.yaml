@@ -1,10 +1,8 @@
 stages:
-  
   simulate_and_plot_rl_results:
-    cmd: Rscript scripts/hddm/simulation_20250415.R
+    cmd: Rscript scripts/hddm/simulation_qualitative_trend.R
     deps:
-      - scripts/hddm/simulation_20250415.R
+      - scripts/hddm/simulation_qualitative_trend.R
       - scripts/hddm/ddm/traces.csv
     outs:
       - scripts/hddm/figures/sim_empirical_comparison_plot.pdf
-
