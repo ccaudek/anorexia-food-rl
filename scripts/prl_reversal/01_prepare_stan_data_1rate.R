@@ -1,16 +1,10 @@
-# Overview ----------------------------------------------------------------
-# Associated project: AN-R: PRL with food/neutral stimuli
-# Script purpose: generate input data for Stan.
-#
-# Written by: Corrado Caudek (corrado.caudek@unifi.it)
-# Version: Wed Apr  9 16:36:17 2025
-# Last update: Wed Apr 16 20:20:35 2025
-# Status: Final
-# Notes: 
+#!/usr/bin/env Rscript
 
+# Generate input data for Stan.
+# Written by: Corrado Caudek (corrado.caudek@unifi.it)
+# Date: 2025‑04‑17
 
 # Load necessary libraries ------------------------------------------------
-
 suppressPackageStartupMessages({
   library(here)
   library(tidybayes)
@@ -23,12 +17,16 @@ suppressPackageStartupMessages({
   library(rstan)
   library(cmdstanr) # Lightweight Stan interface
   library(posterior)
-  options(posterior.num_args=list(digits=2))
+  options(posterior.num_args = list(digits = 2))
   library(bayesplot)
   library(pillar)
   options(pillar.negative = FALSE)
   library(tinytable)
-  options(tinytable_format_num_fmt = "significant_cell", tinytable_format_digits = 2, tinytable_tt_digits=2)
+  options(
+    tinytable_format_num_fmt = "significant_cell",
+    tinytable_format_digits = 2,
+    tinytable_tt_digits = 2
+  )
   library(matrixStats)
   library(purrr) # List manipulation
   library(extraDistr) # More distributions
@@ -46,15 +44,20 @@ suppressPackageStartupMessages({
   ds_theme_set()
 })
 
-par(family="serif", las=1, bty="l",
-    cex.axis=1, cex.lab=1, cex.main=1,
-    xaxs="i", yaxs="i", mar = c(5, 5, 3, 1)
+par(
+  family = "serif",
+  las = 1,
+  bty = "l",
+  cex.axis = 1,
+  cex.lab = 1,
+  cex.main = 1,
+  xaxs = "i",
+  yaxs = "i",
+  mar = c(5, 5, 3, 1)
 )
 
 
-# -------------------------------------------------------------------------
-# Import raw PRL data
-# -------------------------------------------------------------------------
+# Import raw PRL data -----------------------------------------------------
 df <- rio::import(
   here::here("data", "raw", "ed_prl_data.csv")
 )
@@ -67,15 +70,13 @@ rio::export(
 )
 
 
-# -------------------------------------------------------------------------
-# 1) Create a data frame for the "food" condition, 80 trials max
-# -------------------------------------------------------------------------
+# 1) Create a data frame for the "food" condition, 80 trials max ----------
 df_food <- df %>%
   dplyr::filter(stim == "food", trial >= 1, trial <= 80) %>%
   mutate(
     # 2) Create "epoch" indicating pre (1..40) vs. post (41..80)
     epoch = if_else(trial <= 40, 1L, 2L),
-    
+
     # 3) Create a "clean" subject index
     subj_new = as.integer(factor(subj_idx))
   )
@@ -94,16 +95,16 @@ subj_group_food <- df_food %>%
   arrange(subj_new)
 
 # 5) Get the counts
-S_food <- n_distinct(df_food$subj_new)  # number of subjects (food)
-N_food <- nrow(df_food)                # number of total trials (food)
-G <- 3                                  # total groups (AN=1, HC=2, RI=3)
+S_food <- n_distinct(df_food$subj_new) # number of subjects (food)
+N_food <- nrow(df_food) # number of total trials (food)
+G <- 3 # total groups (AN=1, HC=2, RI=3)
 
 # 6) Build the vectors for Stan
-subj_food     <- df_food$subj_new
-group_food    <- subj_group_food$group_idx
-choice_food   <- df_food$response    # 0/1
-feedback_food <- df_food$feedback    # 0/1
-epoch_food    <- df_food$epoch       # 1=pre, 2=post
+subj_food <- df_food$subj_new
+group_food <- subj_group_food$group_idx
+choice_food <- df_food$response # 0/1
+feedback_food <- df_food$feedback # 0/1
+epoch_food <- df_food$epoch # 1=pre, 2=post
 
 # 7) Assemble the Stan data list for the 'food' condition
 stan_data_food <- list(
@@ -117,9 +118,7 @@ stan_data_food <- list(
   epoch = epoch_food
 )
 
-# -------------------------------------------------------------------------
-# Repeat the same process for the "neutral" condition
-# -------------------------------------------------------------------------
+# Repeat the same process for the "neutral" condition ---------------------
 df_neutral <- df %>%
   dplyr::filter(stim == "neutral", trial >= 1, trial <= 80) %>%
   mutate(
@@ -141,11 +140,11 @@ subj_group_neutral <- df_neutral %>%
 S_neutral <- n_distinct(df_neutral$subj_new)
 N_neutral <- nrow(df_neutral)
 
-subj_neutral    <- df_neutral$subj_new
-group_neutral   <- subj_group_neutral$group_idx
-choice_neutral  <- df_neutral$response
-feedback_neutral<- df_neutral$feedback
-epoch_neutral   <- df_neutral$epoch
+subj_neutral <- df_neutral$subj_new
+group_neutral <- subj_group_neutral$group_idx
+choice_neutral <- df_neutral$response
+feedback_neutral <- df_neutral$feedback
+epoch_neutral <- df_neutral$epoch
 
 stan_data_neutral <- list(
   S = S_neutral,
@@ -168,6 +167,5 @@ rio::export(
   stan_data_neutral,
   here("scripts", "prl_reversal", "stan_input_data", "stan_data_neutral.RDS")
 )
-
 
 # eof ---

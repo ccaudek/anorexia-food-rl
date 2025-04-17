@@ -25,8 +25,8 @@ stages:
       size: 1962526
     - path: scripts/prl_reversal/01_prepare_stan_data_1rate.R
       hash: md5
-      md5: 706fbde63edf85c5859a6d20e30057ad
-      size: 4862
+      md5: 32a8bb2d675a7b387623c0008b9bdb89
+      size: 4248
     outs:
     - path: scripts/prl_reversal/stan_input_data/stan_data_food.RDS
       hash: md5
@@ -66,8 +66,8 @@ stages:
     deps:
     - path: scripts/prl_reversal/02_fit_prl.R
       hash: md5
-      md5: bbd7611181a552febf1aea11f7e8b1b8
-      size: 6107
+      md5: a7375b63580c5d3e3c741d9f018e3cee
+      size: 8616
     - path: scripts/prl_reversal/stan/prl_one_learning_rate.stan
       hash: md5
       md5: 607dbe37d963056fb1a0fe6998442e45
@@ -83,14 +83,14 @@ stages:
     outs:
     - path: scripts/prl_reversal/figures/
       hash: md5
-      md5: 9ae491304d6be1363212492b71b23256.dir
-      size: 135232
+      md5: 21178e07598f2a870ec5d62168d1bc11.dir
+      size: 135131
       nfiles: 12
     - path: scripts/prl_reversal/fits/fit_food.qs
       hash: md5
-      md5: a8c084bbf66beedf4fe4b19604119218
-      size: 157162
+      md5: edbe5a1331ce5ff3b24049301d380ca1
+      size: 203381
     - path: scripts/prl_reversal/fits/fit_neutral.qs
       hash: md5
-      md5: 99286d3bed5b4e8b3a3fa2ff9d6923bc
-      size: 159101
+      md5: f44e15598375f27fff551db7c562993e
+      size: 208991
